@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -13,6 +15,10 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+
+    'weatherapi' => [
+        'key' => env('WEATHERAPI_KEY'),
+    ],
 
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
