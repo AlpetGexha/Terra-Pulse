@@ -1,5 +1,7 @@
 # 🌍 Terra-Pulse: Intelligent Travel Safety & Planning System
 
+[Intro](/screenshots/introduction.png)
+
 Terra-Pulse is an advanced travel intelligence system that combines satellite positioning, Earth observation data, weather analysis, and AI-powered safety assessments to provide comprehensive travel planning and emergency services.
 
 **Best Route To Travel Experience**
