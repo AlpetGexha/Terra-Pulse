@@ -11,12 +11,15 @@ use Illuminate\Support\Facades\Log;
 
 final class TravelIntelligenceService
 {
-    public function __construct(
+public function __construct(
         protected GalileoService $galileo,
         protected CopernicusService $copernicus,
         protected WeatherService $weather,
         protected ScoringService $scoring,
-        protected RouteSafetyService $routeSafety
+        protected RouteSafetyService $routeSafety,
+        protected AmadeusHotelService $amadeusHotelService,
+        protected AmadeusService $amadeusService,
+
     ) {}
 
     /**
@@ -76,6 +79,33 @@ final class TravelIntelligenceService
                 $metrics
             );
 
+
+            // $hotels = $this->amadeusHotelService->searchHotels(
+            //     $lat,
+            //     $lng,
+            //     now()->addDays(1)->format('Y-m-d'),
+            //     now()->addDays(2)->format('Y-m-d'),
+            //     2
+            // );
+
+            $hotels = $this->amadeusService->searchHotels(
+                $lat,
+                $lng,
+                now()->addDays(1)->format('Y-m-d'),
+                now()->addDays(2)->format('Y-m-d'),
+                2
+            );
+
+
+            // $transfers = $this->amadeusService->searchTransfers(
+            //     $startLat,
+            //     $startLng,
+            //     $lat,
+            //     $lng,
+            //     $passengers
+            // );
+
+
             // Step 7: Compile unified response
             return [
                 'position_info' => [
@@ -100,6 +130,8 @@ final class TravelIntelligenceService
                 'timestamp' => now()->toIso8601String(),
                 'valid_until' => now()->addHours(48)->toIso8601String(),
                 'bbox' => $surfaceResult['bbox'],
+                // 'hotels' => $hotels,
+                // 'transfers' => $transfers,
             ];
         } catch (Exception $e) {
             Log::error('Travel intelligence analysis failed', [

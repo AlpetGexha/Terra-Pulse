@@ -9,6 +9,7 @@ use App\Http\Controllers\GalileoController;
 use App\Http\Controllers\RouteSafetyController;
 use App\Http\Controllers\SatelliteController;
 use App\Http\Controllers\WeatherController;
+use App\Http\Controllers\HotelController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WeatherController::class, 'index']);
@@ -27,3 +28,22 @@ Route::get('/emergency/status', [EmergencyController::class, 'getEmergencyStatus
 Route::post('/emergency/test', [EmergencyController::class, 'testEmergencySignal'])->name('emergency.test');
 Route::delete('/emergency/cancel', [EmergencyController::class, 'cancelEmergency'])->name('emergency.cancel');
 Route::get('/emergency/types', [EmergencyController::class, 'getEmergencyTypes'])->name('emergency.types');
+
+
+Route::get('/hotels/nearby', [HotelController::class, 'nearby'])->name('hotels.nearby');
+Route::post('/hotels/book', [HotelController::class, 'book'])->name('hotels.book');
+
+
+
+Route::get('/hotels/test', function(App\Services\AmadeusHotelService $svc) {
+  $lat = 42.380431163878484;
+    $lng = 20.428198694885797;
+    $checkIn  = now()->addDays(1)->format('Y-m-d');
+    $checkOut = now()->addDays(2)->format('Y-m-d');
+    $hotels = $svc->searchHotels($lat, $lng, $checkIn, $checkOut, 1);
+
+    return response()->json([
+        'input'  => compact('lat','lng','checkIn','checkOut'),
+        'response' => $hotels
+    ]);
+});

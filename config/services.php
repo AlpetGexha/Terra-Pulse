@@ -20,6 +20,13 @@ return [
         'key' => env('WEATHERAPI_KEY'),
     ],
 
+
+    'amadeus' => [
+        'base_url'     => env('AMADEUS_BASE_URL', 'https://test.api.amadeus.com'),
+        'client_id'    => env('AMADEUS_CLIENT_ID'),
+        'client_secret' => env('AMADEUS_CLIENT_SECRET'),
+    ],
+
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
     ],
